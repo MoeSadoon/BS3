@@ -17,6 +17,16 @@ class Ship
     @hits == @size
   end
 
+  def hit? (coord)
+    if  @position == coord
+      was_hit
+      'hit'
+    else
+      'miss'
+    end
+  end
+
+
 end
 
 # Version 'Skateboard'
