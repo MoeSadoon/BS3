@@ -3,8 +3,8 @@ require 'player'
 describe Player do
 
   # let(:shipklass) { double 'Ship', new: :ship }
-  let(:ship) { instance_double('ship') }
-  let(:shipklass) { class_double('Ship') }
+  # let(:ship) { instance_double('ship') }
+  # let(:shipklass) { class_double('Ship') }
   # let(:board) { double :board }
   #
   # it "can place a ship on the board" do
@@ -16,10 +16,10 @@ describe Player do
   #   expect(Player.new(baordklass).board.ships).to include(ship)
   # end
 
-  it "can place a ship on the board" do
-    allow(shipklass).to receive(:new).and_return(ship)
-    expect{subject.place(shipklass, 'E1', :N)}.to change{subject.board.ships.count}.by(1)
-  end
+  # it "can place a ship on the board" do
+  #   allow(shipklass).to receive(:new).and_return(ship)
+  #   expect{subject.place(shipklass, 'E1', :N)}.to change{subject.board.ships.count}.by(1)
+  # end
 
   it "will lose if all ships are hit" do
     # subject.place(Ship, 'A1', :N)

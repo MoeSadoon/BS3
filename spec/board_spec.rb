@@ -40,10 +40,21 @@ describe Board do
     expect(subject).not_to be_all_sunk
   end
 
+  it 'does not allow ships to overlap' do
+    ship1 = Ship.new('A1', :N)
+    ship2 = Ship.new('A1', :N)
+    subject.place(ship1)
+    expect{subject.place(ship2)}.to raise_error 'Overlap'
+  end
 
+  it 'does not allow submarines to overlap' do
+    sub1 = Submarine.new('A2', :N)
+    sub2 = Submarine.new('A3', :N)
+    subject.place(sub1)
+    expect{subject.place(sub2)}.to raise_error 'Overlap'
+  end
 
 end
-
 
 
 # Version 'Skateboard'

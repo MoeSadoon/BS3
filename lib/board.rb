@@ -8,12 +8,14 @@ class Board
     @ships = []
   end
 
-  def place(ship)
-    @ships << ship
+  def place(new_ship)
+    new_ship.all_positions
+    ships.each { |ship| fail 'Overlap' if (ship.positions & new_ship.positions) != [] }
+    @ships << new_ship
   end
 
   def receive_a_hit(coord)
-    ships.each { |ship| return :hit if ship.hit?(coord) == 'hit'}
+    ships.each { |ship| return :hit if ship.hit(coord) == 'hit'}
     :miss
   end
 

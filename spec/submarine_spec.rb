@@ -22,4 +22,11 @@ describe Submarine do
     expect(sub.all_positions).to eq(['B8', 'C8'])
   end
 
+  it 'can be hit in any of the positions it is in' do
+    sub = Submarine.new('C4', :N)
+    board = Board.new
+    board.place sub
+    expect(sub.hit('C3')).to eq('hit')
+  end
+
 end
