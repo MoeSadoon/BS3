@@ -1,7 +1,5 @@
 require 'board'
 describe Board do
-  #let(:ship) { double :ship, hit: :miss}
-
 
   it "can place a ship on it" do
     ship = Ship.new('A1', :N)
@@ -54,14 +52,11 @@ describe Board do
     expect{subject.place(sub2)}.to raise_error 'Overlap'
   end
 
+  it "does not allow ships outside the board" do
+    d = Destroyer.new('A1', :S)
+    expect{subject.place(d)}.to raise_error "Outside the board"
+  end
+
 end
 
 
-# Version 'Skateboard'
-# describe Board do
-#   let(:ship) { double :ship }
-#
-#   it "can place a ship on it" do
-#     expect(subject.place(ship)).to include(ship)
-#   end
-# end

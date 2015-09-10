@@ -9,7 +9,7 @@ class Board
   end
 
   def place(new_ship)
-    new_ship.all_positions
+    fail "Outside the board" if outside(new_ship)
     ships.each { |ship| fail 'Overlap' if (ship.positions & new_ship.positions) != [] }
     @ships << new_ship
   end
@@ -23,23 +23,18 @@ class Board
     !(ships.any? { |ship| !ship.sunk? })
   end
 
+  private
+
+  def list_of_positions
+    letters = ("A".."J").to_a
+    numbers = (1..10).to_a
+    letters.map {|letter| numbers.map {|number| letter+number.to_s}}.flatten
+  end
+
+  def outside(new_ship)
+    new_ship.all_positions
+    !(new_ship.positions - list_of_positions).empty?
+  end
 
 end
 
-# Version 'Skateboard'
-# class Board
-#   def initialize
-#     @ships = []
-#   end
-#   def place(ship)
-#     @ships << ship
-#   end
-# end
-
-
-# def all_sunk?
-#   new = ships.map do |ship|
-#     ship.sunk? ? true : false
-#   end
-#   new.include?(false) ? false : true
-# end

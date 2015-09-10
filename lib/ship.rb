@@ -12,6 +12,7 @@ class Ship
 
   def was_hit
     @hits += 1
+    'hit'
   end
 
   def sunk?
@@ -19,53 +20,36 @@ class Ship
   end
 
   def hit (coord)
-    if positions.include? coord
-      was_hit
-      'hit'
-    else
-      'miss'
+    (positions.include? coord) ? was_hit : 'miss'
+  end
+
+  def all_positions
+    pos = @start_position
+    (size-1).times do
+      pos = next_position(pos)
+      positions << pos
     end
   end
+
+  private
 
   def prev(letter)
     str = 'ABCDEFGHJI'
     str[str.index(letter)-1]
   end
 
-  def new_pos_n
-     (start_position[0] + (start_position[1..2].to_i - 1).to_s) unless size == 1
-  end
-
-  def new_pos_s
-    (start_position[0] + (start_position[1].to_i + 1).to_s) unless size == 1
-  end
-
-  def new_pos_w
-    (prev(start_position[0]) + start_position[1..2]) unless size == 1
-  end
-
-  def new_pos_e
-    (start_position[0].next + start_position[1..2]) unless size == 1
-  end
-
-  def all_positions
-    if direction == :N
-      positions << new_pos_n if new_pos_n
-    elsif direction == :S
-      positions << new_pos_s if new_pos_s
-    elsif direction == :W
-      positions << new_pos_w if new_pos_w
-    elsif direction == :E
-      positions << new_pos_e if new_pos_e
+  def next_position(coord)
+    case @direction
+    when :N
+      coord[0] + (coord[1].to_i + 1).to_s
+    when :S
+      coord[0] + (coord[1..2].to_i - 1).to_s
+    when :W
+      coord[0].next + coord[1..2]
+    when :E
+      prev(coord[0]) + coord[1..2]
     end
   end
 
-
 end
 
-# Version 'Skateboard'
-# class Ship
-#   def initialize(position)
-#     @position = position
-#   end
-# end
