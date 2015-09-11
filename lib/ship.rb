@@ -7,20 +7,21 @@ class Ship
     @start_position = position
     @direction = direction
     @size = 1
-    @hits = 0
+    @hits = []
   end
 
-  def was_hit
-    @hits += 1
+  def was_hit(coord)
+    @hits << coord
     'hit'
   end
 
   def sunk?
-    @hits == @size
+    @hits.length == @size
   end
 
   def hit (coord)
-    (positions.include? coord) ? was_hit : 'miss'
+    fail "Already hit location" if @hits.include? coord 
+    (positions.include? coord) ? was_hit(coord) : 'miss'
   end
 
   def all_positions
@@ -34,7 +35,7 @@ class Ship
   private
 
   def prev(letter)
-    str = 'ABCDEFGHJI'
+    str = 'ABCDEFGHIJKLM'
     str[str.index(letter)-1]
   end
 
